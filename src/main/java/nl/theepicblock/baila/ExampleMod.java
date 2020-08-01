@@ -1,4 +1,4 @@
-package net.fabricmc.example;
+package nl.theepicblock.baila;
 
 import net.fabricmc.api.ModInitializer;
 

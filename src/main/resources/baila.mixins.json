@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.fabricmc.example.mixin",
+  "package": "nl.theepicblock.baila.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "ServerTickMixin"

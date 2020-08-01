@@ -1,4 +1,4 @@
-package net.fabricmc.example.mixin;
+package nl.theepicblock.baila.mixin;
 
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.server.MinecraftServer;
