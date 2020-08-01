@@ -18,9 +18,6 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "nl.theepicblock.baila.ExampleMod"
-    ]
   },
   "mixins": [
     "baila.mixins.json"
