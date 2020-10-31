@@ -14,7 +14,7 @@ public class BailaTickHandler {
     public static void tick(ServerPlayerEntity player) {
         ServerWorld world = player.getServerWorld();
 
-        HitResult blockHit = player.rayTrace(8,0,false);
+        HitResult blockHit = player.rayTrace(Baila.getConfig().raytraceDistance, 0, false);
         BlockState blockState = world.getBlockState(((BlockHitResult)blockHit).getBlockPos());
 
         if (!blockState.isAir()) {
