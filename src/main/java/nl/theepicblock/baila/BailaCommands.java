@@ -20,14 +20,14 @@ public class BailaCommands {
                         config.enabled = !config.enabled;
                         context.getSource().sendFeedback(new LiteralText("you have now "+enabledDisabled(config.enabled)+" baila"), false);
                         return Command.SINGLE_SUCCESS;
-                    })
+                    }))
                 .then(CommandManager.literal("fluids")
                     .executes((context) -> {
                         PlayerConfig config = getConfig(context);
                         config.fluids = !config.fluids;
                         context.getSource().sendFeedback(new LiteralText("you have now "+enabledDisabled(config.fluids)+" fluids"), false);
                         return Command.SINGLE_SUCCESS;
-                    }))));
+                    })));
     }
 
     private static PlayerConfig getConfig(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
