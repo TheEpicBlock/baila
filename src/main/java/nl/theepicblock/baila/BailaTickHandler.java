@@ -10,11 +10,15 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 
+@SuppressWarnings("PointlessBooleanExpression")
 public class BailaTickHandler {
     public static void tick(ServerPlayerEntity player) {
+        PlayerConfig playerConfig = getConfig(player);
+        if (playerConfig.enabled == false) return;
+
         ServerWorld world = player.getServerWorld();
 
-        HitResult blockHit = player.rayTrace(Baila.getConfig().raytraceDistance, 0, false);
+        HitResult blockHit = player.rayTrace(Baila.getConfig().raytraceDistance, 0, playerConfig.fluids);
         BlockState blockState = world.getBlockState(((BlockHitResult)blockHit).getBlockPos());
 
         if (!blockState.isAir()) {
@@ -22,6 +26,10 @@ public class BailaTickHandler {
         } else {
             send(player, LiteralText.EMPTY);
         }
+    }
+
+    private static PlayerConfig getConfig(ServerPlayerEntity player) {
+        return ((ConfigProvider)player).getConfig();
     }
 
     public static void send(ServerPlayerEntity player, Text text) {
