@@ -17,4 +17,10 @@ public class PlayerConfig {
             enabled = tag.getBoolean("enabled");
         }
     }
+
+    @SuppressWarnings("PointlessBooleanExpression")
+    public boolean hasChangedFromDefault() {
+        return enabled != true ||
+                fluids != false;
+    }
 }

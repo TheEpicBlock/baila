@@ -35,7 +35,9 @@ public class ServerPlayerEntityMixin implements PlayerCachedTitle, ConfigProvide
 
 	@Inject(method = "writeCustomDataToTag", at = @At("HEAD"))
 	public void writeInject(CompoundTag tag, CallbackInfo ci) {
-		tag.put("bailaplayerconfig", config.toTag());
+		if (config.hasChangedFromDefault()) {
+			tag.put("bailaplayerconfig", config.toTag());
+		}
 	}
 
 	@Inject(method = "readCustomDataFromTag", at = @At("HEAD"))
