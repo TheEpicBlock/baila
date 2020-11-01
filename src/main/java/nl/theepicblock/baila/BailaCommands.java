@@ -19,6 +19,7 @@ public class BailaCommands {
                         PlayerConfig config = getConfig(context);
                         config.enabled = !config.enabled;
                         context.getSource().sendFeedback(new LiteralText("you have now "+enabledDisabled(config.enabled)+" baila"), false);
+                        ((CachedBlockProvider)context.getSource().getPlayer()).setCachedBlock(null);
                         return Command.SINGLE_SUCCESS;
                     }))
                 .then(CommandManager.literal("fluids")

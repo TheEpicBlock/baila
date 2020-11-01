@@ -1,11 +1,10 @@
 package nl.theepicblock.baila.mixin;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import nl.theepicblock.baila.ConfigProvider;
-import nl.theepicblock.baila.PlayerCachedTitle;
+import nl.theepicblock.baila.CachedBlockProvider;
 import nl.theepicblock.baila.PlayerConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -14,18 +13,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayerEntity.class)
-public class ServerPlayerEntityMixin implements PlayerCachedTitle, ConfigProvider {
-	@Unique	Text cachedActionbarTitle;
+public class ServerPlayerEntityMixin implements CachedBlockProvider, ConfigProvider {
+	@Unique	BlockState cachedBlock;
 	@Unique	PlayerConfig config = new PlayerConfig();
 
 	@Override
-	public Text getCachedActionbarTitle() {
-		return cachedActionbarTitle;
+	public BlockState getCachedBlock() {
+		return cachedBlock;
 	}
 
 	@Override
-	public void setCachedActionbarTitle(Text cachedActionbarTitle) {
-		this.cachedActionbarTitle = cachedActionbarTitle;
+	public void setCachedBlock(BlockState v) {
+		this.cachedBlock = v;
 	}
 
 	@Override

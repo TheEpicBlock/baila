@@ -20,17 +20,20 @@ public class BailaTickHandler {
 
         BlockState blockState = raytrace(player, playerConfig);
 
-        if (!blockState.isAir()) {
-            send(player, new TranslatableText(blockState.getBlock().getTranslationKey()));
-        } else {
-            send(player, LiteralText.EMPTY);
+        if (blockState != ((CachedBlockProvider)player).getCachedBlock()) {
+            ((CachedBlockProvider)player).setCachedBlock(blockState);
+
+            if (!blockState.isAir()) {
+                send(player, new TranslatableText(blockState.getBlock().getTranslationKey()));
+            } else {
+                send(player, LiteralText.EMPTY);
+            }
         }
     }
 
     public static void sendProperties(ServerCommandSource source) throws CommandSyntaxException {
-        PlayerConfig playerConfig = getConfig(source.getPlayer());
-
-        BlockState blockState = raytrace(source.getPlayer(), playerConfig);
+        BlockState blockState = ((CachedBlockProvider)source.getPlayer()).getCachedBlock();
+        if (blockState == null || Baila.getConfig().alwaysRaytraceWhenGettingProperties) blockState = raytrace(source.getPlayer(), getConfig(source.getPlayer()));
 
         StringBuilder message = new StringBuilder();
         for (Property<?> property : blockState.getProperties()) {
@@ -62,9 +65,6 @@ public class BailaTickHandler {
     }
 
     public static void send(ServerPlayerEntity player, Text text) {
-        if (!text.equals(((PlayerCachedTitle) player).getCachedActionbarTitle())) {
-            player.networkHandler.sendPacket(new TitleS2CPacket(TitleS2CPacket.Action.ACTIONBAR,text));
-            ((PlayerCachedTitle) player).setCachedActionbarTitle(text);
-        }
+        player.networkHandler.sendPacket(new TitleS2CPacket(TitleS2CPacket.Action.ACTIONBAR,text));
     }
 }
