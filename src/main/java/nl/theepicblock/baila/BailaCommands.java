@@ -27,6 +27,11 @@ public class BailaCommands {
                         config.fluids = !config.fluids;
                         context.getSource().sendFeedback(new LiteralText("you have now "+enabledDisabled(config.fluids)+" fluids"), false);
                         return Command.SINGLE_SUCCESS;
+                    }))
+                .then(CommandManager.literal("getproperties")
+                    .executes((context) -> {
+                        BailaTickHandler.sendProperties(context.getSource());
+                        return Command.SINGLE_SUCCESS;
                     })));
     }
 
