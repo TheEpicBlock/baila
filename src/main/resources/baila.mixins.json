@@ -2,7 +2,7 @@
 	"required": true,
 	"minVersion": "0.8",
 	"package": "nl.theepicblock.baila.mixin",
-	"compatibilityLevel": "JAVA_8",
+	"compatibilityLevel": "JAVA_16",
 	"mixins": [
 		"ServerPlayerEntityMixin",
 		"ServerTickMixin"

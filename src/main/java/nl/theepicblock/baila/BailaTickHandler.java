@@ -2,7 +2,7 @@ package nl.theepicblock.baila;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.BlockState;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
+import net.minecraft.network.packet.s2c.play.OverlayMessageS2CPacket;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.property.Property;
@@ -56,7 +56,7 @@ public class BailaTickHandler {
     }
 
     private static BlockState raytrace(ServerPlayerEntity playerEntity, PlayerConfig playerConfig) {
-        HitResult blockHit = playerEntity.rayTrace(Baila.getConfig().raytraceDistance, 0, playerConfig.fluids);
+        HitResult blockHit = playerEntity.raycast(Baila.getConfig().raytraceDistance, 0, playerConfig.fluids);
         return playerEntity.world.getBlockState(((BlockHitResult)blockHit).getBlockPos());
     }
 
@@ -65,6 +65,6 @@ public class BailaTickHandler {
     }
 
     public static void send(ServerPlayerEntity player, Text text) {
-        player.networkHandler.sendPacket(new TitleS2CPacket(TitleS2CPacket.Action.ACTIONBAR,text));
+        player.networkHandler.sendPacket(new OverlayMessageS2CPacket(text));
     }
 }
