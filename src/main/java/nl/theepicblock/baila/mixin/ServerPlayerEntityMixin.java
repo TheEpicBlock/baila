@@ -1,7 +1,7 @@
 package nl.theepicblock.baila.mixin;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import nl.theepicblock.baila.ConfigProvider;
 import nl.theepicblock.baila.CachedBlockProvider;
@@ -32,15 +32,15 @@ public class ServerPlayerEntityMixin implements CachedBlockProvider, ConfigProvi
 		return config;
 	}
 
-	@Inject(method = "writeCustomDataToTag", at = @At("HEAD"))
-	public void writeInject(CompoundTag tag, CallbackInfo ci) {
+	@Inject(method = "writeCustomDataToNbt", at = @At("HEAD"))
+	public void writeInject(NbtCompound tag, CallbackInfo ci) {
 		if (config.hasChangedFromDefault()) {
 			tag.put("bailaplayerconfig", config.toTag());
 		}
 	}
 
-	@Inject(method = "readCustomDataFromTag", at = @At("HEAD"))
-	public void readInject(CompoundTag tag, CallbackInfo ci) {
+	@Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
+	public void readInject(NbtCompound tag, CallbackInfo ci) {
 		if (tag.contains("bailaplayerconfig")) {
 			config.fromTag(tag.getCompound("bailaplayerconfig"));
 		}
